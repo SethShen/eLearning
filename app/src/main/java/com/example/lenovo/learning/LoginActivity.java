@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 
+import cn.jpush.android.api.JPushInterface;
 import cn.smssdk.SMSSDK;
 
 public class LoginActivity extends Activity {
@@ -24,6 +25,7 @@ public class LoginActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_activity);
         SMSSDK.initSDK(this,APPKEY,APPSECRET);
+
         btn_login = (Button) findViewById(R.id.btn_login);
         btn_register = (Button)findViewById(R.id.btn_register);
         txt_username = (EditText) findViewById(R.id.et_username);
