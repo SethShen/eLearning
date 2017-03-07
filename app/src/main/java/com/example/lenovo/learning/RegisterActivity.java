@@ -25,7 +25,6 @@ public class RegisterActivity extends Activity{
     private EditText txt_IdentifyingCode;
     private Button btn_getIdentifyingCode;
     private Button btn_submit;
-    private Button btn_clear;
     private EventHandler eh;
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -38,9 +37,8 @@ public class RegisterActivity extends Activity{
         txt_IdentifyingCode = (EditText)findViewById(R.id.txt_IdentifyingCode);
         btn_getIdentifyingCode = (Button)findViewById(R.id.btn_getIdentifyingCode);
         btn_submit = (Button)findViewById(R.id.btn_submit);
-        btn_clear = (Button)findViewById(R.id.btn_clear);
-        SMSSDK.initSDK(this,APPKEY,APPSECRET);
-        SMSSDK.registerEventHandler(eh);
+        SMSSDK.initSDK(this,APPKEY,APPSECRET);//短信验证码
+        SMSSDK.registerEventHandler(eh);//注册
     }
     public void Submit(View view){
         String userName = txt_username.getText().toString();
@@ -60,22 +58,15 @@ public class RegisterActivity extends Activity{
             SMSSDK.registerEventHandler(eh);
             SMSSDK.submitVerificationCode("86",phoneNumber,identifyingCode);
             SMSSDK.unregisterEventHandler(eh);
+            Intent intent = new Intent(this,LoginActivity.class);
+            intent.putExtra("username",userName);
+            intent.putExtra("password",firstPassword);
+            setResult(RESULT_OK,intent);
+            finish();
         }
-        Intent intent = new Intent(this,LoginActivity.class);
-        intent.putExtra("username",userName);
-        intent.putExtra("password",firstPassword);
-        setResult(RESULT_OK,intent);
-        finish();
     }
 
-    public void Clear(View view){
-        txt_username.setText("");
-        txt_FirstPassword.setText("");
-        txt_SecondPassword.setText("");
-        txt_phonenumber.setText("");
-        txt_IdentifyingCode.setText("");
-    }
-
+/**************获取验证码************************/
     public void getIdentifyingCode(View view){
         String phoneNumber = txt_phonenumber.getText().toString();
         if(phoneNumber.equals("")){
@@ -103,9 +94,10 @@ public class RegisterActivity extends Activity{
             SMSSDK.getVerificationCode("86",phoneNumber);
         }
     }
+    /**********************************************/
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        SMSSDK.unregisterEventHandler(eh);
+        SMSSDK.unregisterEventHandler(eh);//取消注册
     }
 }
