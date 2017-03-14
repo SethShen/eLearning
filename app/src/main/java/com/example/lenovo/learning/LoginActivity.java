@@ -24,6 +24,7 @@ public class LoginActivity extends Activity {
     private EditText txt_username;
     private EditText txt_password;
     private CheckBox checkBox;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,7 +35,7 @@ public class LoginActivity extends Activity {
         txt_password = (EditText) findViewById(R.id.et_password);
         checkBox = (CheckBox) findViewById(R.id.cb_rem);
         TextView forgetPassword = (TextView)findViewById(R.id.forgetPassword);
-        TextView register = (TextView)findViewById(R.id.btn_register);
+        //TextView register = (TextView)findViewById(R.id.btn_register);
         SharedPreferences sharedPreference = getSharedPreferences("users", Activity.MODE_PRIVATE);
         String username = sharedPreference.getString("username", "");
         String password = sharedPreference.getString("password", "");
@@ -136,4 +137,6 @@ public class LoginActivity extends Activity {
         String name= "sjh";
         SMSSDK.submitUserInfo(uid,name,null,country,phone);
     }
+
+
 }

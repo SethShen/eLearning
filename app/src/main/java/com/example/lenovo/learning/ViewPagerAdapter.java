@@ -6,7 +6,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 
 public class ViewPagerAdapter extends FragmentPagerAdapter {
 
-    final int PAGE_COUNT =8;
+    final int PAGE_COUNT =8;                //ToolBar页面个数
     private String[] titles;
 
     public ViewPagerAdapter(FragmentManager fm, String[] titles2) {
@@ -15,7 +15,7 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
     }
 
     @Override
-    public Fragment getItem(int position) {
+    public Fragment getItem(int position) {             //ToolBar 8个页面
         switch (position) {
             // Open FragmentTab1.java
             case 0:

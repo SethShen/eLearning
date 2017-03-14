@@ -45,6 +45,7 @@
             </intent-filter>
         </activity>
         <activity android:name="com.example.lenovo.learning.RegisterActivity"/>
+
         <!--UI-->
         <activity
             android:name=".SampleActivity"
