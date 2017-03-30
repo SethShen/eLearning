@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/blue">
+
+    <Button
+        android:text="停止录音"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/stop"
+        android:layout_alignParentBottom="true"
+        android:layout_alignLeft="@+id/start"
+        android:layout_alignStart="@+id/start"
+        android:layout_marginBottom="48dp"
+        android:onClick="onClick"
+        android:background="@drawable/shape"
+        android:enabled="false"/>
+
+    <Button
+        android:text="开始录音"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/start"
+        android:layout_alignBottom="@+id/stop"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="81dp"
+        android:onClick="onClick"
+        android:background="@drawable/shape"/>
+
+    <TextView
+        android:hint="@string/app_name"
+        android:layout_width="300dp"
+        android:layout_height="200dp"
+        android:layout_marginTop="58dp"
+        android:id="@+id/speakdatadetails"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:scrollbars="vertical"
+        android:fadeScrollbars="false"/>
+
+    <TextView
+        android:text="请阅读"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/control"
+        android:layout_marginTop="42dp"
+        android:layout_below="@+id/speakdatadetails"
+        android:layout_centerHorizontal="true"
+        />
+
+
+</RelativeLayout>

@@ -8,6 +8,9 @@
         android:name="com.example.lenovo.leaning.permission.JPUSH_MESSAGE"
         android:protectionLevel="signature" />
     <!--结束-->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"/>
+
     <!-- To auto-complete the email text field in the login form with the user's emails -->
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.READ_PROFILE" />
@@ -28,6 +31,12 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <!--录音-->
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <!--读取SD卡-->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <!--结束-->
     <application
         android:name="com.example.lenovo.learning.APP"
@@ -38,22 +47,36 @@
         android:theme="@style/AppTheme">
         <activity
             android:name="com.example.lenovo.learning.LoginActivity"
-            android:label="@string/app_name">
+            android:label="@string/app_name"
+            android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.example.lenovo.learning.RegisterActivity"/>
+        <activity android:name="com.example.lenovo.learning.RegisterActivity"
+            android:launchMode="singleTask"/>
 
         <!--UI-->
         <activity
             android:name=".SampleActivity"
-            android:label="@string/app_name" >plus.png
+            android:label="@string/app_name"
+            android:launchMode="singleTask">
+            plus.png
             plus.png
         </activity>
+        <activity android:name=".com.tekinarslan.material.Frag3"
+            android:launchMode="singleTask"/>
+        <activity android:name=".Frag4"
+            android:launchMode="singleTask"/>
+        <activity android:name=".About"
+            android:launchMode="singleTask"/>
         <activity android:name="com.mob.tools.MobUIShell"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+        <activity android:name=".com.tekinarslan.material.SpeakDataDetails"
+            android:launchMode="singleTask"/>
+        <activity android:name=".com.tekinarslan.material.MyDownloads"
+            android:launchMode="standard"/>
         <!--开始-->
         <!-- Required SDK 核心功能-->
         <!-- 可配置android:process参数将PushService放在其他进程中 -->
@@ -68,7 +91,6 @@
                 <action android:name="cn.jpush.android.intent.PUSH_TIME" />
             </intent-filter>
         </service>
-
         <!-- since 1.8.0 option 可选项。用于同一设备中不同应用的JPush服务相互拉起的功能。 -->
         <!-- 若不启用该功能可删除该组件，将不拉起其他应用也不能被其他应用拉起 -->
         <service
@@ -114,6 +136,8 @@
                 <category android:name="com.example.lenovo.learning" />
             </intent-filter>
         </activity>
+        <activity android:name=".com.tekinarslan.material.musicList.MusicPlayer"/>
+        <activity android:name=".com.tekinarslan.material.musicList.MusicListFragment"/>
 
         <!-- Required SDK核心功能-->
         <service

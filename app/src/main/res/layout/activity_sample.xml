@@ -2,71 +2,95 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/black_translucent">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="?attr/colorPrimaryDark" />
-
-        <com.example.lenovo.learning.SlidingTabLayout
-            android:id="@+id/sliding_tabs"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="?attr/colorPrimaryDark"
-            android:paddingLeft="20dp"
-            android:paddingRight="20dp" />
-        <!--广告栏-->
         <!--广告栏-->
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical" >
             <!-- ViewPager是一个控件 -->
-            <android.support.v4.view.ViewPager
-                android:id="@+id/adv_pager"
-                android:layout_width="fill_parent"
-                android:layout_height="130dp" >
-            </android.support.v4.view.ViewPager>
             <!--广告栏-->
             <LinearLayout
                 android:id="@+id/viewGroup"
-                android:layout_below="@id/adv_pager"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="-25px"
                 android:gravity="right"
                 android:orientation="horizontal" >
             </LinearLayout>
-            <!--结束-->
-        </RelativeLayout>
-        <!--结束-->
-        <!--结束-->
-        <android.support.v4.view.ViewPager
-            android:id="@+id/viewpager"
-            android:layout_width="match_parent"
-            android:layout_height="0px"
-            android:layout_weight="1"
-            android:background="@android:color/white" />
 
+            <android.support.v4.view.ViewPager
+                android:id="@+id/adv_pager"
+                android:layout_width="fill_parent"
+                android:layout_height="130dp"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true">
+            </android.support.v4.view.ViewPager>
+
+            <android.support.v7.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/recorderfile"
+                android:background="@color/blue"
+                android:layout_below="@+id/adv_pager"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginBottom="40dp"
+                android:layout_marginTop="130dp"/>
+        
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:gravity="bottom"
+                android:id="@+id/bottombar"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true">
+                <TextView
+                    android:id="@+id/main"
+                    android:layout_weight="1"
+                    android:layout_width="1dp"
+                    android:layout_height="50dp"
+                    android:text="@string/recommend"
+                    android:gravity="center"
+                    android:onClick="onClick"/>
+                <TextView
+                    android:id="@+id/listen"
+                    android:layout_width="1dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    android:text="@string/listen"
+                    android:gravity="center"
+                    android:onClick="onClick"/>
+                <TextView
+                    android:id="@+id/spokenEnglish"
+                    android:layout_width="1dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    android:text="@string/speak"
+                    android:gravity="center"
+                    android:onClick="onClick"/>
+                <TextView
+                    android:id="@+id/like"
+                    android:layout_width="1dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    android:text="@string/my"
+                    android:gravity="center"
+                    android:onClick="onClick"/>
+            </LinearLayout>
+        </RelativeLayout>
     </LinearLayout>
 
-    <ListView
-        android:id="@+id/navdrawer"
-        android:layout_width="@dimen/navdrawer_width"
-        android:layout_height="match_parent"
-        android:layout_gravity="start"
-        android:layout_marginTop="?attr/actionBarSize"
-        android:background="?attr/colorPrimaryDark"
-        android:choiceMode="singleChoice"
-        android:divider="@android:color/white"
-        android:dividerHeight="1dp"
-        android:drawSelectorOnTop="false"></ListView>
-
+    <!--导航栏-->
 </android.support.v4.widget.DrawerLayout>

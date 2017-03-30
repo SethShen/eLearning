@@ -1,26 +1,27 @@
 package com.example.lenovo.learning;
 
-import android.content.res.Configuration;
-import android.graphics.Color;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.os.Parcelable;
-import android.support.v4.view.GravityCompat;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
-import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.widget.Toolbar;
-import android.view.MenuItem;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
+
+import com.example.lenovo.learning.com.tekinarslan.material.Frag3;
+import com.example.lenovo.learning.com.tekinarslan.material.musicList.MusicAdapter;
+import com.example.lenovo.learning.com.tekinarslan.material.musicList.MusicList;
+import com.example.lenovo.learning.com.tekinarslan.material.musicList.MusicListFragment;
+import com.example.lenovo.learning.com.tekinarslan.material.musicList.MusicPlayer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,125 +29,36 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class SampleActivity extends ActionBarActivity {
 
-    private DrawerLayout mDrawerLayout;
-    private ActionBarDrawerToggle drawerToggle;
-
-    private ListView mDrawerList;
-    ViewPager pager;
-    private String[] titles = new String[]{"Sample Tab 1", "Sample Tab 2", "Sample Tab 3", "Sample Tab 4"
-            , "Sample Tab 5", "Sample Tab 6", "Sample Tab 7", "Sample Tab 8"};
-    private Toolbar toolbar;
-
-    SlidingTabLayout slidingTabLayout;
     private ImageView[] imageViews = null;
     private ImageView imageView = null;
     private ViewPager advPager = null;
     private AtomicInteger what = new AtomicInteger(0);
     private boolean isContinue = true;
     private ViewGroup group=null;
-    public ViewPager getPager(){
-        return advPager;
-    }
-    public ViewGroup getGroup(){
-        return  group;
-    }
+    private ListView listView;
+    private TextView tv1;
+    private TextView tv2;
+    private TextView tv3;
+    private TextView tv4;
+    private Frag3 frag3;
+    private Frag4 frag4;
+    private MusicListFragment musicListFragment;
+    private MusicAdapter musicAdapter;
+    private RecyclerView mMusicRecyclerView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sample);
+        init();
         initViewPager();
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        mDrawerList = (ListView) findViewById(R.id.navdrawer);
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-        if (toolbar != null) {
-            setSupportActionBar(toolbar);
-            toolbar.setNavigationIcon(R.mipmap.ic_ab_drawer);
-        }
-        pager = (ViewPager) findViewById(R.id.viewpager);
-        slidingTabLayout = (SlidingTabLayout) findViewById(R.id.sliding_tabs);
-        pager.setAdapter(new ViewPagerAdapter(getSupportFragmentManager(), titles));
-
-        slidingTabLayout.setViewPager(pager);
-        slidingTabLayout.setCustomTabColorizer(new SlidingTabLayout.TabColorizer() {
-            @Override
-            public int getIndicatorColor(int position) {
-                return Color.WHITE;
-            }
-        });
-        drawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, toolbar, R.string.app_name, R.string.app_name);
-        mDrawerLayout.setDrawerListener(drawerToggle);
-        String[] values = new String[]{
-                "DEFAULT", "RED", "BLUE", "MATERIAL GREY"
-        };
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
-                android.R.layout.simple_list_item_1, android.R.id.text1, values);
-        mDrawerList.setAdapter(adapter);
-        mDrawerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view,
-                                    int position, long id) {
-                switch (position) {                                 //侧边栏
-                    case 0:
-                        mDrawerList.setBackgroundColor(getResources().getColor(R.color.material_deep_teal_500));
-                        toolbar.setBackgroundColor(getResources().getColor(R.color.material_deep_teal_500));
-                        slidingTabLayout.setBackgroundColor(getResources().getColor(R.color.material_deep_teal_500));
-                        mDrawerLayout.closeDrawer(GravityCompat.START);
-                        break;
-                    case 1:
-                        mDrawerList.setBackgroundColor(getResources().getColor(R.color.red));
-                        toolbar.setBackgroundColor(getResources().getColor(R.color.red));
-                        slidingTabLayout.setBackgroundColor(getResources().getColor(R.color.red));
-                        mDrawerLayout.closeDrawer(GravityCompat.START);
-
-                        break;
-                    case 2:
-                        mDrawerList.setBackgroundColor(getResources().getColor(R.color.blue));
-                        toolbar.setBackgroundColor(getResources().getColor(R.color.blue));
-                        slidingTabLayout.setBackgroundColor(getResources().getColor(R.color.blue));
-                        mDrawerLayout.closeDrawer(GravityCompat.START);
-
-                        break;
-                    case 3:
-                        mDrawerList.setBackgroundColor(getResources().getColor(R.color.material_blue_grey_800));
-                        toolbar.setBackgroundColor(getResources().getColor(R.color.material_blue_grey_800));
-                        slidingTabLayout.setBackgroundColor(getResources().getColor(R.color.material_blue_grey_800));
-                        mDrawerLayout.closeDrawer(GravityCompat.START);
-
-                        break;
-                }
-            }
-        });
+        setListview();
     }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-
-        if (drawerToggle.onOptionsItemSelected(item)) {
-            return true;
-        }
-
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                mDrawerLayout.openDrawer(GravityCompat.START);
-                return true;
-        }
-
-        return super.onOptionsItemSelected(item);
+    public void init(){
+        tv1 = (TextView) findViewById(R.id.main);
+        tv2 = (TextView) findViewById(R.id.listen);
+        tv3 = (TextView) findViewById(R.id.spokenEnglish);
+        tv4 = (TextView) findViewById(R.id.like);
     }
-
-
-    @Override
-    protected void onPostCreate(Bundle savedInstanceState) {
-        super.onPostCreate(savedInstanceState);
-        drawerToggle.syncState();
-    }
-
-    @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-        drawerToggle.onConfigurationChanged(newConfig);
-    }
-
 
     private void initViewPager() {
         advPager = (ViewPager) findViewById(R.id.adv_pager);
@@ -261,21 +173,12 @@ public class SampleActivity extends ActionBarActivity {
 
         @Override
         public void onPageSelected(int arg0) {              //选中页面，功能重写
-            what.getAndSet(arg0);
-            for (int i = 0; i < imageViews.length; i++) {
-                imageViews[arg0]                //选中的页面更换图片
-                        .setBackgroundResource(R.mipmap.ic_launcher);/********/
-                if (arg0 != i) {                //未选中的其他页面同意更换为指定图片
-                    imageViews[i]
-                            .setBackgroundResource(R.mipmap.ic_launcher);/********/
-                }
-            }
 
         }
 
     }
 
-    private final class AdvAdapter extends PagerAdapter {       //适配解析
+    public final class AdvAdapter extends PagerAdapter {       //适配解析
         private List<View> views = null;
 
         public AdvAdapter(List<View> views) {
@@ -322,7 +225,47 @@ public class SampleActivity extends ActionBarActivity {
         public void startUpdate(View arg0) {
 
         }
-
     }
 
+    /***************首页listview************************/
+    public void setListview(){
+            mMusicRecyclerView = (RecyclerView) findViewById(R.id.recorderfile);
+            mMusicRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+            musicAdapter = new MusicAdapter(MusicList.getMusicInfos(),SampleActivity.this);
+            musicAdapter.setOnMusicClickListener(new MusicAdapter.OnMusicClickListener() {
+                @Override
+                public void OnMusicClick(View view, int position) {
+                    Intent intent = MusicPlayer.MusicIntent(SampleActivity.this, MusicList.getMusicInfos(), position);
+                    startActivity(intent);
+                }
+            });
+            mMusicRecyclerView.setAdapter(musicAdapter);
+        }
+    public void onClick(View view){
+        switch (view.getId()){
+            case R.id.main:
+                break;
+            case R.id.listen:
+                if (musicListFragment==null) {
+                    musicListFragment = new MusicListFragment();
+                }
+                Intent intent = new Intent(this,musicListFragment.getClass());
+                startActivity(intent);
+                break;
+            case R.id.spokenEnglish:
+                if (frag3 == null) {
+                    frag3 = new Frag3();
+                }
+                intent = new Intent(this,frag3.getClass());
+                startActivity(intent);
+                break;
+            case R.id.like:
+                if (frag4 == null) {
+                    frag4 = new Frag4();
+                }
+                intent = new Intent(this,frag4.getClass());
+                startActivity(intent);
+                break;
+        }
+    }
 }
